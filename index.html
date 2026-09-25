@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Informática 601 — Jogo Educativo</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%BB%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- TELA 0: LOGIN -->
+  <div id="tela-login" class="tela ativa">
+    <div class="inicio-bg"></div>
+    <div id="flutuantes-login" class="flutuantes"></div>
+    <div class="inicio-container">
+      <div class="inicio-logo">💻</div>
+      <h1 class="inicio-titulo">Informática 601</h1>
+      <p class="inicio-sub">Quem vai jogar hoje?</p>
+      <input type="text" id="input-nome" class="input-nome" placeholder="Digite seu nome..." maxlength="24" autocomplete="off">
+      <button class="btn-comecar" id="btn-entrar">▶  Entrar</button>
+      <div id="nomes-recentes" class="nomes-recentes"></div>
+      <p class="login-aviso">💡 Cada aluno mantém seu próprio progresso. Tudo é zerado quando o programa é fechado.</p>
+    </div>
+  </div>
+
+  <!-- TELA 1: INÍCIO -->
+  <div id="tela-inicio" class="tela">
+    <div class="inicio-bg"></div>
+    <div id="flutuantes" class="flutuantes"></div>
+    <button id="btn-som" class="btn-som" title="Ligar/desligar som">🔊</button>
+    <button id="btn-trocar-aluno" class="btn-trocar" title="Trocar de aluno">👤 <span id="nome-aluno-label"></span> · Trocar</button>
+    <div class="inicio-container">
+      <div class="inicio-logo">💻</div>
+      <h1 class="inicio-titulo">Informática 601</h1>
+      <p class="inicio-sub">CEMF — Jogo Educativo · 6º Ano · Os 4 Bimestres</p>
+      <button class="btn-comecar" id="btn-comecar">▶  Começar!</button>
+      <p id="progresso-geral" class="progresso-geral"></p>
+      <div class="inicio-deco">🖱️ ⌨️ 🖥️</div>
+    </div>
+  </div>
+
+  <!-- TELA 2: BIMESTRE -->
+  <div id="tela-bimestre" class="tela">
+    <div class="header" id="hdr-bimestre">
+      <button class="btn-v" data-para="tela-inicio">◀ Início</button>
+      <span>Escolha o Bimestre 📅</span>
+      <span></span>
+    </div>
+    <div class="bim-grid bim-grid-601">
+      <button class="btn-bim bim601-1" data-bim="1"><span class="bim-n">1º</span><span class="bim-l">Conhecendo o Computador</span><span class="bim-m">Hardware &amp; Periféricos</span></button>
+      <button class="btn-bim bim601-2" data-bim="2"><span class="bim-n">2º</span><span class="bim-l">Windows &amp; Arquivos</span><span class="bim-m">Área de trabalho, pastas...</span></button>
+      <button class="btn-bim bim601-3" data-bim="3"><span class="bim-n">3º</span><span class="bim-l">Microsoft PowerPoint</span><span class="bim-m">Apresentações de slides</span></button>
+      <button class="btn-bim bim601-4" data-bim="4"><span class="bim-n">4º</span><span class="bim-l">Microsoft Word</span><span class="bim-m">Editor de textos</span></button>
+    </div>
+  </div>
+
+  <!-- TELA 3: AULAS -->
+  <div id="tela-aulas" class="tela">
+    <div class="header" id="hdr-aulas">
+      <button class="btn-v" data-para="tela-bimestre">◀ Bimestre</button>
+      <span id="aulas-titulo-hdr">Aulas 📖</span>
+      <span id="aulas-placar-bim" class="aulas-placar-bim"></span>
+    </div>
+    <div class="aulas-progresso-wrap">
+      <div class="aulas-progresso-bar"><div id="aulas-progresso-fill" class="aulas-progresso-fill"></div></div>
+    </div>
+    <div id="aulas-grid" class="aulas-grid aulas-grid-601"></div>
+  </div>
+
+  <!-- TELA 4: EXPLICAÇÃO -->
+  <div id="tela-explicacao" class="tela">
+    <div class="header" id="hdr-explicacao">
+      <button class="btn-v" data-para="tela-aulas">◀ Aulas</button>
+      <span id="explicacao-titulo-hdr">Explicação</span>
+      <span id="explicacao-prog-txt">1 / 3</span>
+    </div>
+    <div class="explicacao-wrap">
+      <div class="explicacao-progbar"><div id="explicacao-prog-fill" class="explicacao-prog-fill"></div></div>
+      <div id="explicacao-card" class="explicacao-card">
+        <div id="explicacao-emoji" class="explicacao-emoji">💡</div>
+        <h2 id="explicacao-subtitulo" class="explicacao-subtitulo"></h2>
+        <div id="explicacao-img-wrap" class="explicacao-img-wrap"></div>
+        <p id="explicacao-texto" class="explicacao-texto"></p>
+      </div>
+      <div class="explicacao-nav">
+        <button id="btn-explicacao-ant" class="btn-nav-exp">◀ Voltar</button>
+        <button id="btn-explicacao-prox" class="btn-nav-exp btn-nav-prox">Próximo ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TELA 5: QUIZ -->
+  <div id="tela-quiz" class="tela">
+    <div class="header" id="hdr-quiz">
+      <button class="btn-v" data-para="tela-aulas">◀ Aulas</button>
+      <span id="quiz-titulo-hdr">Quiz</span>
+      <span id="quiz-placar">0 pts</span>
+    </div>
+    <div class="quiz-wrap">
+      <div class="quiz-prog">
+        <div class="quiz-prog-bar"><div id="quiz-prog-fill" class="quiz-prog-fill"></div></div>
+        <span id="quiz-prog-txt">1 / 5</span>
+      </div>
+      <div id="mascote" class="mascote">🙂</div>
+      <div id="combo-badge" class="combo-badge">🔥 x0</div>
+      <div class="quiz-card" id="quiz-card">
+        <div id="quiz-img-wrap" class="quiz-img-wrap"></div>
+        <p id="quiz-pergunta"></p>
+      </div>
+      <div id="quiz-opcoes" class="quiz-opcoes"></div>
+      <div id="quiz-fb" class="quiz-fb"></div>
+    </div>
+  </div>
+
+  <!-- TELA 6: LIGAR -->
+  <div id="tela-ligar" class="tela">
+    <div class="header" id="hdr-ligar">
+      <button class="btn-v" data-para="tela-aulas">◀ Aulas</button>
+      <span id="ligar-titulo-hdr">Ligue as Colunas</span>
+      <span id="ligar-placar">0 / 0</span>
+    </div>
+    <div class="ligar-wrap">
+      <p class="ligar-inst">Clique em um item de cada coluna para ligar! 🔗</p>
+      <div class="ligar-colunas">
+        <div id="ligar-esq" class="ligar-col ligar-esq"></div>
+        <div id="ligar-dir" class="ligar-col ligar-dir"></div>
+      </div>
+      <div id="ligar-fb" class="ligar-fb"></div>
+    </div>
+  </div>
+
+  <!-- TELA 7: RESULTADO -->
+  <div id="tela-resultado" class="tela">
+    <div class="resultado-wrap">
+      <div id="res-emoji" class="res-emoji">🏆</div>
+      <h2 id="res-titulo" class="res-titulo">Parabéns!</h2>
+      <p id="res-pontos" class="res-pontos"></p>
+      <div id="res-estrelas" class="res-estrelas"></div>
+      <p id="res-extra" class="res-extra"></p>
+      <div id="confetti-area" class="confetti-area"></div>
+      <div class="res-btns">
+        <button id="btn-repetir" class="btn-res">🔄 Repetir</button>
+        <button id="btn-proxima" class="btn-res btn-res-verde">▶ Próxima Aula</button>
+        <button id="btn-res-menu" class="btn-res btn-res-cinza">🏠 Menu</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- #app -->
+
+<script src="dados/bim1.js"></script>
+<script src="dados/bim2.js"></script>
+<script src="dados/bim3.js"></script>
+<script src="dados/bim4.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
